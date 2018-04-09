@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -74,7 +75,19 @@ module.exports = {
             minify: false,
             cache: true,
             showErrors: true
-        })
+        }),
+        new CopyWebpackPlugin(
+            [
+                {
+                    context: 'src',
+                    to: '',
+                    from: {
+                        glob: 'assets/**/*',
+                        dot: true
+                    }
+                }
+            ]
+        )
     ],
     node: {
         fs: 'empty',

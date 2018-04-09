@@ -1,32 +1,34 @@
 {
-    "name": "sol-scene",
-    "version": "0.0.0",
-    "description": "The scene for the Sol project (the system itself)",
-    "main": "index.html",
-    "dependencies": {
-        "@types/three": "^0.91.3",
-        "three": "^0.91.0",
-        "typescript": "^2.8.1"
-    },
-    "devDependencies": {
-        "file-loader": "^1.1.11",
-        "html-webpack-plugin": "^3.1.0",
-        "raw-loader": "^0.5.1",
-        "ts-loader": "^4.1.0",
-        "url-loader": "^1.0.1",
-        "webpack": "^4.4.1",
-        "webpack-cli": "^2.0.13",
-        "webpack-dev-server": "^3.1.1"
-    },
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "webpack-dev-server --open --inline --hot --info=true",
-        "build": "webpack"
-    },
-    "keywords": [
-        "sol",
-        "threejs"
-    ],
-    "author": "inhuman.en@gmail.com",
-    "license": "ISC"
+  "name": "sol-scene",
+  "version": "0.0.0",
+  "description": "The scene for the Sol project (the system itself)",
+  "main": "index.html",
+  "dependencies": {
+    "@types/three": "^0.91.3",
+    "copy-webpack-plugin": "^4.5.1",
+    "three": "^0.91.0",
+    "three-orbitcontrols-ts": "^0.1.2",
+    "typescript": "^2.8.1"
+  },
+  "devDependencies": {
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.1.0",
+    "raw-loader": "^0.5.1",
+    "ts-loader": "^4.1.0",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --open --inline --hot --info=true",
+    "build": "webpack"
+  },
+  "keywords": [
+    "sol",
+    "threejs"
+  ],
+  "author": "inhuman.en@gmail.com",
+  "license": "ISC"
 }
