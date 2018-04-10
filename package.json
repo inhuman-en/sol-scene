@@ -6,6 +6,7 @@
   "dependencies": {
     "@types/three": "^0.91.3",
     "copy-webpack-plugin": "^4.5.1",
+    "postprocessing": "^4.4.1",
     "three": "^0.91.0",
     "three-orbitcontrols-ts": "^0.1.2",
     "typescript": "^2.8.1"
