@@ -37,7 +37,7 @@ window.onload = function() {
 
     let uniforms = {
         fogDensity: { value: 0.05 },
-        fogColor: { value: new Vector3(0, 0, 0) },
+        fogColor: { value: new Vector3(30, 8, 0) },
         time: { value: 1.0 },
         uvScale: { value: new Vector2(2.0, 1.0) },
         texture1: { value: textureLoader.load('/assets/textures/cloud.png') },
@@ -61,7 +61,7 @@ window.onload = function() {
 
     let renderModel = new RenderPass(scene, camera);
     let effectBloom = new BloomPass(1.50);
-    let effectFilm = new FilmPass(0.35, 0.95, 2048, false);
+    let effectFilm = new FilmPass(0.15, 0.95, 2048, false);
 
     effectFilm.renderToScreen = true;
 
