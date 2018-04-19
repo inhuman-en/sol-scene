@@ -1,79 +1,30 @@
 import {
-    Scene,
-    PerspectiveCamera,
-    WebGLRenderer,
     SphereGeometry,
     Mesh,
     MeshBasicMaterial,
     ShaderMaterial,
-    TextureLoader,
     Vector2,
     Vector3,
     RepeatWrapping,
     Clock
 } from 'three';
 
-import { RenderPass, BloomPass, FilmPass, EffectComposer } from 'postprocessing';
+import { RenderPass, BloomPass, FilmPass } from 'postprocessing';
 
-import { OrbitControls } from 'three-orbitcontrols-ts';
-import { starfield } from './objects';
-import * as Shaders from './shaders';
+import { starfield, sun, uniforms as sunUniforms } from './objects';
+import { renderer } from "./renderer";
+import { scene } from "./scene";
+import { camera } from "./camera";
+import { controls } from "./controls";
+import { composer } from "./effectComposer";
+
 window.onload = function() {
-    let textureLoader = new TextureLoader();
-    let scene = new Scene();
-    let camera = new PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.1, 2000);
-    let controls = new OrbitControls(camera);
-    let renderer = new WebGLRenderer({ antialias: true, alpha: false });
-
-    // scene.background = textureLoader.load('/assets/textures/mw.jpeg');
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
+    let clock = new Clock();    
 
     document.body.appendChild(renderer.domElement);
 
-    renderer.autoClear = false;
-
-    let geometry = new SphereGeometry(2.5, 300, 300);
-    let clock = new Clock();
-
-    let uniforms = {
-        fogDensity: { value: 0.05 },
-        fogColor: { value: new Vector3(30, 8, 0) },
-        time: { value: 1.0 },
-        uvScale: { value: new Vector2(2.0, 1.0) },
-        texture1: { value: textureLoader.load('/assets/textures/cloud.png') },
-        texture2: { value: textureLoader.load('/assets/textures/lavatile.jpg') }
-    };
-    uniforms.texture1.value.wrapS = uniforms.texture1.value.wrapT = RepeatWrapping;
-    uniforms.texture2.value.wrapS = uniforms.texture2.value.wrapT = RepeatWrapping;
-
-    let material = new ShaderMaterial({
-        uniforms,
-        vertexShader: Shaders.sunVertex,
-        fragmentShader: Shaders.sunFagment
-    });
-
-    // let material = new MeshBasicMaterial({ wireframe: false, map: new TextureLoader().load( "assets/textures/sun1.jpg" ) });
-    let sun = new Mesh(geometry, material);
-
     scene.add(sun);
     scene.add(starfield);
-
-
-    let renderModel = new RenderPass(scene, camera);
-    let effectBloom = new BloomPass(1.50);
-    let effectFilm = new FilmPass(0.15, 0.95, 2048, false);
-
-    effectFilm.renderToScreen = true;
-
-
-    
-    let composer = new EffectComposer(renderer);
-
-    composer.addPass(renderModel);
-    composer.addPass(effectBloom);
-    composer.addPass(effectFilm);
 
     camera.position.z = 5;
 
@@ -90,10 +41,6 @@ window.onload = function() {
         camera.updateProjectionMatrix();
         camera.lookAt(scene.position);
         renderer.setSize(window.innerWidth, window.innerHeight);
-
-        
-
-        // composer.reset();
     };
 
     resize();
@@ -101,12 +48,12 @@ window.onload = function() {
     window.addEventListener('resize', resize, false);
 
     let render = function() {
-        sun.rotation.y += 0.001;
+        sun.rotation.y += 0.0005;
 
         // renderer.render(scene, camera);
 
         let delta = 5 * clock.getDelta();
-        uniforms.time.value += 0.2 * delta;
+        sunUniforms.time.value += 0.1 * delta;
 
         renderer.clear();
         composer.render(0.01);

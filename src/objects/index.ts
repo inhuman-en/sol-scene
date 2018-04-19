@@ -1,1 +1,2 @@
-export *  from './starfield';
+export * from './starfield';
+export * from './sun';
